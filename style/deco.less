@@ -1,0 +1,175 @@
+// Variables
+@primaryColor: #000000;
+
+* {
+    /* outline: 1px solid #ff000010 !important; */
+    box-sizing: border-box;
+    font-size: 16px;
+    resize: none;
+    font-family: Roboto, sans-serif;
+}
+
+html, body {
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+
+textarea {
+    width: 100%;
+}
+
+#side .setting span {
+    margin-bottom: 10px;
+    color: #666;
+    cursor: pointer;
+    border: 1px solid white;
+    padding: 5px;
+}
+
+#side .setting span:hover{
+    color: black;
+    animation: fadein 0.3s;
+    background-color:#00000033;
+}
+
+@keyframes fadein {
+    from {
+        color: #666;
+        background-color:white;
+    }
+    to {
+        color: black;
+        background-color:#00000033;
+    }
+}
+
+#oktal {
+    height:100%;
+}
+
+.linenum {
+    min-width: 20px;
+    border-right: 1px solid #ddd;
+    text-align: right;
+    color: #bbb;
+    position: absolute;
+    float: right;
+    padding: 16px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    line-height: 23px;
+
+}
+
+#oktal #side {
+    float: left;
+    margin: 0 -85% 0 0;
+    width: 15%;
+    clear: none;
+    height:100%;
+    box-shadow: 0px 0px 5px #ccc;
+}
+
+#oktal #side a {
+    color: #666;
+    text-decoration: none;
+}
+
+#oktal #in {
+    float: left;
+    margin-left: 15%;
+    width: 55%;
+    height:100%;
+}
+
+#oktal #in div {
+    height: 25%;
+    /*overflow: hidden; TODO */
+}
+
+#oktal #out {
+    float: right;
+    width: 30%;
+    clear: none;
+    height:100%;
+}
+
+#oktal #out div {
+    height: 25%;
+}
+
+#oktal div textarea {
+    height: 100%;
+    background-color: #0000000c;
+    border-left: 1px solid #CFD6D9;
+    border-bottom: 1px solid #CFD6D9;
+    border-top: none;
+    border-right: none;
+    padding: 16px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    line-height: 23px;
+    color: #333;
+}
+
+#oktal div label {
+    float: right;
+    right: 10px;
+    bottom: 20px;
+    position: relative;
+    color: #9497B3;
+    font-size: 11px;
+}
+
+#github {
+    position: absolute;
+    left: 30px;
+    bottom: 30px;
+    opacity: 0.15;
+}
+
+#github:hover {
+    opacity: 0.7;
+}
+
+#feedback {
+    position: absolute;
+    left: 80px;
+    bottom: 27px;
+    opacity: 0.2;
+    font-size: 36px;
+}
+
+#feedback:hover {
+    opacity: 0.7;
+}
+
+#oktal #side #help{
+    position: absolute;
+    left: 136px;
+    color: white;
+    bottom: 34px;
+    font-size: 30px;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    padding-top: 0px;
+    line-height: 32px;
+    background-color: black;
+    border-radius: 30px;
+    opacity: 0.15;
+}
+
+#oktal #side #help:hover {
+    opacity: 0.6;
+}
+
+#oktal #side #footer {
+    position: absolute;
+    bottom: 30px;
+    width: 10%;
+}

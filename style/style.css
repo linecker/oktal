@@ -1,0 +1,131 @@
+* {
+    /*outline: 1px solid #ff000050 !important;*/
+    box-sizing: border-box;
+    font-size: 16px;
+    resize: none;
+    font-family: Roboto, sans-serif;
+}
+
+html, body {
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+
+textarea {
+    width: 100%;
+}
+
+#oktal {
+    height:100%;
+}
+
+#oktal #side {
+    float: left;
+    margin: 0 -80% 0 0; /* FIXME */
+    width: 230px;
+    clear: none;
+    height:100%;
+    box-shadow: 0px 0px 5px #ccc;
+}
+
+#logo
+{
+    margin-top: 50px;
+    margin-left: 40px;
+    width: 130px;
+}
+
+#menu {
+    list-style: none;
+    padding-left: 35px;
+    margin-top: 70px;
+}
+
+#menu li {
+    margin-bottom: 10px;
+    color: #666;
+    padding-bottom: 5px;
+    padding: 5px 0px 5px 0px;
+}
+
+#menu li a {
+    cursor: pointer;
+    padding: 5px;
+    color: #666;
+    text-decoration: none;
+}
+
+#menu li div {
+    position: absolute;
+    width: 170px;
+    bottom: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 14px;
+    color: #666;
+}
+
+#menu li a:hover {
+    color: black;
+    animation: fadein 0.3s;
+    background-color:#00000033;
+}
+
+@keyframes fadein {
+    from {
+        color: #666;
+        background-color:white;
+    }
+    to {
+        color: black;
+        background-color:#00000033;
+    }
+}
+
+#oktal #in {
+    float: left;
+    margin-left: 230px;
+    height:100%;
+    width: calc(100% - 630px);
+}
+
+#oktal #in div {
+    height: 25%;
+    /*overflow: hidden; TODO */
+}
+
+#oktal #out {
+    float: right;
+    width: 400px;
+    clear: none;
+    height:100%;
+}
+
+#oktal #out div {
+    height: 25%;
+}
+
+#oktal div textarea {
+    height: 100%;
+    background-color: #0000000c;
+    border-left: 1px solid #CFD6D9;
+    border-bottom: 1px solid #CFD6D9;
+    border-top: none;
+    border-right: none;
+    padding: 16px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    line-height: 23px;
+    color: #333;
+}
+
+#oktal div label {
+    float: right;
+    right: 10px;
+    bottom: 20px;
+    position: relative;
+    color: #9497B3;
+    font-size: 11px;
+}

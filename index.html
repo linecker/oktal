@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+    <title>oktal — Online Calculator for Developers</title>
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
+    <script type="text/javascript">
+        function appendJSAfterLoad() {
+            var g = document.createElement("script");
+            var o = document.createElement("script");
+            g.src = "script/glue.js";
+            o.src = "script/oktal.js";
+            document.body.appendChild(g);
+            document.body.appendChild(o);
+        }
+        if (window.addEventListener)
+            window.addEventListener("load", appendJSAfterLoad, false);
+        else if (window.attachEvent)
+            window.attachEvent("onload", appendJSAfterLoad);
+        else window.onload = appendJSAfterLoad;
+    </script>
+</head>
+<body>
+    <div id="oktal">
+        <div id="side">
+            <img id="logo" src="images/logo.svg"/>
+            <ul id="menu">
+                <li><a href="Javascript:Clear()">Clear</a></li>
+                <li><a href="Javascript:NextExample()">Next example</a></li>
+                <li><a href="http://github.com/linecker/oktal">Github</a></li>
+                <li><a href="mailto:feedback@oktal.org">feedback@oktal.org</a></li>
+                <li><div>We take no responsibility for wrong, misinterpreted or misleading results.</div></li>
+            </ul>
+        </div>
+        <div id="in">
+            <div class="bin">
+                <textarea></textarea>
+                <label>2</label>
+            </div>
+            <div class="okt">
+                <textarea></textarea>
+                <label>8</label>
+            </div>
+            <div class="dec">
+                <textarea></textarea>
+                <label>10</label>
+            </div>
+            <div class="hex">
+                <textarea></textarea>
+                <label>16</label>
+            </div>
+        </div>
+        <div id="out">
+            <div class="bin">
+                <textarea readonly></textarea>
+                <label>2</label>
+            </div>
+            <div class="okt">
+                <textarea readonly></textarea>
+                <label>8</label>
+            </div>
+            <div class="dec">
+                <textarea readonly></textarea>
+                <label>10</label>
+            </div>
+            <div class="hex">
+                <textarea readonly></textarea>
+                <label>16</label>
+            </div>
+        </div>
+    </div>
+    <!-- Google Analytics -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-96189564-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
+</html>
