@@ -9,6 +9,19 @@ function rebaseTokens(tokens, radix) {
     return tokens;
 }
 
+function logTokens(tokens) {
+    let s: string = '';
+    for (var i = 0; i < tokens.length; i++) {
+        //s += i.toString();
+        //s += ':';
+        //s += tokens[i].type.toString();
+        //s += ',';
+        s += tokens[i].value.toString();
+        s += ',';
+    }
+    console.log(s);
+}
+
 // Input validation functions
 function isOperation(c) {
     c = String.fromCharCode(c);
@@ -38,7 +51,7 @@ function validateDecimalInput(keycode) {
 
 function validateHexadecimalInput(keycode) {
     // FIXME var keycode = keycode.toLowerCase();
-    if ((keycode >= 0x30 && keycode <= 0x37) || (keycode >= 0x61 && keycode <= 0x66) || isOperation(keycode))
+    if ((keycode >= 0x30 && keycode <= 0x39) || (keycode >= 0x61 && keycode <= 0x66) || isOperation(keycode))
         return true;
     return false;
 }

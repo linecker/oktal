@@ -1,3 +1,5 @@
+var currentExample = 1;
+
 var ibin = document.getElementsByClassName("bin")[0].childNodes[1];
 var iokt = document.getElementsByClassName("okt")[0].childNodes[1];
 var idec = document.getElementsByClassName("dec")[0].childNodes[1];
@@ -28,13 +30,12 @@ function lexToString(lexed, radix) {
     return str;
 }
 
-function isPrintableCharacter(evt) {
-    if (typeof evt.which == "undefined") {
+function isPrintableCharacter(event) {
+    if (event.key.length == 1) {
         return true;
-    } else if (typeof evt.which == "number" && evt.which > 0) {
-        return !evt.ctrlKey && !evt.metaKey && !evt.altKey && evt.which != 8;
+    } else {
+        return false;
     }
-    return false;
 }
 
 function log_lexed(lexed) {
@@ -69,9 +70,10 @@ function inputKeyPress(event) {
     var target = event.target;
     var radix = 0;
 
-    // Only care about printable characters, control characters are treated as is.
-    if (isPrintableCharacter(event) == false)
-        return false;
+    // Only care about printable characters, control characters (e.g. cursor left) are
+    // handled by the browser default handler.
+    if (!isPrintableCharacter(event))
+        return;
 
     // Check if input char is legit.
     if (target == ibin) {
@@ -100,25 +102,34 @@ function inputKeyPress(event) {
         }
     }
 
-    // Now, let the event bubble through the browser handler which handles all the text-input logic
-    // for us (copy-paste, cursor key navigation, etc.) and take all further actions in the keyup
-    // event handler.
+    // We end up here if we got a printable character and the input character is
+    // legit concerning the radix. Let the event bubble through the browser default
+    // handler now to handle text input.
+
+    // Note: returning true or false makes no sense but in the places we need it we
+    // can use event.preventDefault() to cancel the browser default handler.
 }
 
 function inputKeyUp(event) {
     var target = event.target;
 
     // Try to lex input.
-    console.log("-----------------------------");
-    console.log("target.value = " + target.value);
-
-    var lex = new Lexer(target.value);
+    radix = determineInputRadix(event);
+    var lex = new Lexer(target.value, radix);
     if (lex.lex()) {
         var lexed = lex.getResult();
 
+        /*
+        console.log("-----------------------------");
+        console.log("target.value = " + target.value);
+        console.log("radix = " + radix);
+        logTokens(lexed);
+        console.log("--");
+        */
+
         // Distribute the lexed input among the input fields.
-        radix = determineInputRadix(event);
         lexed = rebaseTokens(lexed, radix);
+        //logTokens(lexed);
         ibin.value = lexToString(lexed, 2);
         iokt.value = lexToString(lexed, 8);
         idec.value = lexToString(lexed, 10);
@@ -154,14 +165,60 @@ function Clear() {
     ohex.value = "";
 }
 
-function NextExample() {
-    ibin.value = "x";
-    iokt.value = "x";
-    idec.value = "x";
-    ihex.value = "x";
-    obin.value = "x";
-    ookt.value = "x";
-    odec.value = "x";
-    ohex.value = "x";
+function Example1() {
+    ibin.value = "1010<<1000";
+    iokt.value = "12<<10";
+    idec.value = "10<<8";
+    ihex.value = "a<<8";
+    obin.value = "101000000000";
+    ookt.value = "5000";
+    odec.value = "2560";
+    ohex.value = "a00";
 }
 
+function Example2() {
+    ibin.value = "(1|10|100|1000)&111";
+    iokt.value = "(1|2|4|10)&7";
+    idec.value = "(1|2|4|8)&7";
+    ihex.value = "(1|2|4|8)&7";
+    obin.value = "111";
+    ookt.value = "7";
+    odec.value = "7";
+    ohex.value = "7";
+}
+
+function Example3() {
+    ibin.value = "1<<100";
+    iokt.value = "1<<4";
+    idec.value = "1<<4";
+    ihex.value = "1<<4";
+    obin.value = "10000";
+    ookt.value = "20";
+    odec.value = "16";
+    ohex.value = "10";
+}
+
+function Example4() {
+    ibin.value = "1100100/1010";
+    iokt.value = "144/12";
+    idec.value = "100/10";
+    ihex.value = "64/a";
+    obin.value = "1010";
+    ookt.value = "12";
+    odec.value = "10";
+    ohex.value = "a";
+}
+
+function NextExample() {
+    currentExample++;
+    if (currentExample > 4)
+        currentExample = 1;
+    if (currentExample == 1)
+        Example1();
+    else if (currentExample == 2)
+        Example2();
+    else if (currentExample == 3)
+        Example3();
+    else if (currentExample == 4)
+        Example4();
+}

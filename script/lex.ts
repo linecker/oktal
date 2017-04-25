@@ -4,12 +4,14 @@
 class Lexer
 {
     private input: string = '';
+    private radix: number = 0;
     private pos: number = 0;
     private lexed: Array<Token> = [];
     private error: string = '';
 
-    constructor(input: string) {
+    constructor(input: string, radix: number) {
         this.input = input;
+        this.radix = radix;
     }
 
     // Split the input string into a list of tokens <type,value>.
@@ -21,6 +23,8 @@ class Lexer
                 return false;
             }
         }
+        if (this.error)
+            return false;
         return true;
     }
 
@@ -56,9 +60,8 @@ class Lexer
     // Check if we are at the beginning of a number and consume it if possible.
     private number(): boolean {
         var c = this.input[this.pos];
-        if (!isNumber(c))
+        /*if (!isNumber(c))
             return false;
-
         var radix = 10;
         if (this.input[this.pos] == '0' && this.pos + 1 < this.input.length) {
             c = this.input[++this.pos];
@@ -75,6 +78,7 @@ class Lexer
                 this.pos--;
             }
         }
+        */
 
         var start = this.pos;
         for (; this.pos < this.input.length; this.pos++) {
@@ -84,13 +88,15 @@ class Lexer
             }
         }
         var whole = this.input.substring(start, this.pos+1);
-        var x = parseInt(whole, radix);
+        console.log("whole=" + whole);
+        var x = parseInt(whole, this.radix);
         if (isNaN(x)) {
-            //debugLog("NaN");
+            console.log("NAN");
             this.error = "NaN";
             return true;
         }
-        this.lexed.push(new Token(TokenType.Number,x.toString()));
+        console.log(x.toString());
+        this.lexed.push(new Token(TokenType.Number,x.toString(this.radix)));
         return true;
     }
 }
