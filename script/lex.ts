@@ -88,14 +88,12 @@ class Lexer
             }
         }
         var whole = this.input.substring(start, this.pos+1);
-        console.log("whole=" + whole);
         var x = parseInt(whole, this.radix);
         if (isNaN(x)) {
             console.log("NAN");
             this.error = "NaN";
             return true;
         }
-        console.log(x.toString());
         this.lexed.push(new Token(TokenType.Number,x.toString(this.radix)));
         return true;
     }

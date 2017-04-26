@@ -4,90 +4,85 @@
 
 var test = require('unit.js');
 var fs = require('fs');
-
-function include(fileName) {
-  console.log('Loading file: ' + fileName);
-  var ev = require(fileName);
-  for (var prop in ev) {
-    global[prop] = ev[prop];
-  }
-}
-
-include('oktal.js');
-
-//var oktal = require('./oktal');
+var vm = require('vm');
+var includeInThisContext = function(path) {
+    var code = fs.readFileSync(path);
+    vm.runInThisContext(code, path);
+}.bind(this);
+includeInThisContext(__dirname+"/oktal.js");
 
 // ----------------------------------------------------------------------------
 // Testing ts
 // ----------------------------------------------------------------------------
 // binary
 test.assert(validateBinaryInput("<".charCodeAt(0)));
-test.assert(oktal.validateBinaryInput("0".charCodeAt(0)));
-test.assert(oktal.validateBinaryInput("1".charCodeAt(0)));
-test.assert(!oktal.validateBinaryInput("2".charCodeAt(0)));
-test.assert(!oktal.validateBinaryInput("a".charCodeAt(0)));
-test.assert(!oktal.validateBinaryInput("€".charCodeAt(0)));
+test.assert(validateBinaryInput("0".charCodeAt(0)));
+test.assert(validateBinaryInput("1".charCodeAt(0)));
+test.assert(!validateBinaryInput("2".charCodeAt(0)));
+test.assert(!validateBinaryInput("a".charCodeAt(0)));
+test.assert(!validateBinaryInput("€".charCodeAt(0)));
 
 // oktal
-test.assert(oktal.validateOktalInput("7".charCodeAt(0)));
-test.assert(!oktal.validateOktalInput("8".charCodeAt(0)));
+test.assert(validateOktalInput("7".charCodeAt(0)));
+test.assert(!validateOktalInput("8".charCodeAt(0)));
 
 // decimal
-test.assert(oktal.validateDecimalInput("9".charCodeAt(0)));
-test.assert(!oktal.validateDecimalInput("a".charCodeAt(0)));
+test.assert(validateDecimalInput("9".charCodeAt(0)));
+test.assert(!validateDecimalInput("a".charCodeAt(0)));
 
 // hexadecimal
-test.assert(oktal.validateHexadecimalInput("a".charCodeAt(0)));
-test.assert(oktal.validateHexadecimalInput("f".charCodeAt(0)));
-test.assert(!oktal.validateHexadecimalInput("g".charCodeAt(0)));
+test.assert(validateHexadecimalInput("a".charCodeAt(0)));
+test.assert(validateHexadecimalInput("f".charCodeAt(0)));
+test.assert(!validateHexadecimalInput("g".charCodeAt(0)));
 
 // ----------------------------------------------------------------------------
 // Testing ts
 // ----------------------------------------------------------------------------
-test.assert(oktal.list.indexOf('*') > -1);
-test.assert.equal(oktal.functions['+'](1,1), 2);
+test.assert(list.indexOf('*') > -1);
+test.assert.equal(functions['+'](1,1), 2);
 
 // ----------------------------------------------------------------------------
 // Testing types.ts
 // ----------------------------------------------------------------------------
-test.assert.deepEqual(new oktal.Token(oktal.TokenType.Number, "100"),
-    { type: oktal.TokenType.Number, value: '100'});
+test.assert.deepEqual(new Token(TokenType.Number, "100"),
+    { type: TokenType.Number, value: '100'});
 
 // ----------------------------------------------------------------------------
 // Testing ts
 // ----------------------------------------------------------------------------
-lx = new oktal.Lexer("1++");
+lx = new Lexer("1++");
 test.assert.equal(lx.lex(), true);
 test.assert.deepEqual(lx.getResult(),[
-    { type: oktal.TokenType.Number, value: 1 },
-    { type: oktal.TokenType.Operator, value: '+' },
-    { type: oktal.TokenType.Operator, value: '+' }]);
+    { type: TokenType.Number, value: 1 },
+    { type: TokenType.Operator, value: '+' },
+    { type: TokenType.Operator, value: '+' }]);
 
-lx = new oktal.Lexer("1+123456789");
+lx = new Lexer("1+123456789");
 test.assert.equal(lx.lex(), true);
 test.assert.deepEqual(lx.getResult(),[
-    { type: oktal.TokenType.Number, value: 1 },
-    { type: oktal.TokenType.Operator, value: '+' },
-    { type: oktal.TokenType.Number, value: 123456789 }]);
+    { type: TokenType.Number, value: 1 },
+    { type: TokenType.Operator, value: '+' },
+    { type: TokenType.Number, value: 123456789 }]);
 
-lx = new oktal.Lexer("0");
+lx = new Lexer("0");
 test.assert.equal(lx.lex(), true);
 test.assert.deepEqual(lx.getResult(),[
-    { type: oktal.TokenType.Number, value: 0 }]);
+    { type: TokenType.Number, value: 0 }]);
 
-lx = new oktal.Lexer("+1+0b0<<0x10&0100");
+/*lx = new Lexer("+1+0b0<<0x10&0100");
 test.assert.equal(lx.lex(), true);
 test.assert.deepEqual(lx.getResult(),[
-    { type: oktal.TokenType.Operator, value: '+' },
-    { type: oktal.TokenType.Number, value: 1 },
-    { type: oktal.TokenType.Operator, value: '+' },
-    { type: oktal.TokenType.Number, value: 0b0 },
-    { type: oktal.TokenType.Operator, value: '<<' },
-    { type: oktal.TokenType.Number, value: 0x10 },
-    { type: oktal.TokenType.Operator, value: '&' },
-    { type: oktal.TokenType.Number, value: 0100 }]);
+    { type: TokenType.Operator, value: '+' },
+    { type: TokenType.Number, value: 1 },
+    { type: TokenType.Operator, value: '+' },
+    { type: TokenType.Number, value: 0b0 },
+    { type: TokenType.Operator, value: '<<' },
+    { type: TokenType.Number, value: 0x10 },
+    { type: TokenType.Operator, value: '&' },
+    { type: TokenType.Number, value: 0100 }]);
+    */
 
-lx = new oktal.Lexer("fail");
+lx = new Lexer("fail");
 test.assert.equal(lx.lex(), false);
 
 // ----------------------------------------------------------------------------
