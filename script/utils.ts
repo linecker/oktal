@@ -12,10 +12,6 @@ function rebaseTokens(tokens, radix) {
 function logTokens(tokens) {
     let s: string = '';
     for (var i = 0; i < tokens.length; i++) {
-        //s += i.toString();
-        //s += ':';
-        //s += tokens[i].type.toString();
-        //s += ',';
         s += tokens[i].value.toString();
         s += ',';
     }
@@ -50,7 +46,7 @@ function validateDecimalInput(keycode) {
 }
 
 function validateHexadecimalInput(keycode) {
-    // FIXME var keycode = keycode.toLowerCase();
+    var keycode = keycode.toLowerCase();
     if ((keycode >= 0x30 && keycode <= 0x39) || (keycode >= 0x61 && keycode <= 0x66) || isOperation(keycode))
         return true;
     return false;
