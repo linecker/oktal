@@ -31,6 +31,8 @@ function lexToString(lexed, radix) {
 }
 
 function isPrintableCharacter(event) {
+    if (event.ctrlKey || event.shiftKey || event.altKey || event.metaKey)
+        return false;
     if (event.key.length == 1) {
         return true;
     } else {

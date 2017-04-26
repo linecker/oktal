@@ -1,5 +1,5 @@
 * {
-    /*outline: 1px solid #ff000050 !important;*/
+    /*outline: 1px solid #ff0000 !important;*/
     box-sizing: border-box;
     font-size: 16px;
     resize: none;
@@ -93,7 +93,7 @@ textarea {
 
 #oktal #in div {
     height: 25%;
-    /*overflow: hidden; TODO */
+    overflow: hidden;
 }
 
 #oktal #out {
@@ -105,11 +105,13 @@ textarea {
 
 #oktal #out div {
     height: 25%;
+    overflow: hidden;
 }
 
 #oktal div textarea {
     height: 100%;
-    background-color: #0000000c;
+    /*background-color: #0000000c;*/
+    background-color: rgba(0,0,0,0.05);
     border-left: 1px solid #CFD6D9;
     border-bottom: 1px solid #CFD6D9;
     border-top: none;
@@ -119,13 +121,17 @@ textarea {
     letter-spacing: 2px;
     line-height: 23px;
     color: #333;
+    margin: 0px;
+    outline: none;
 }
 
-#oktal div label {
+#oktal div div label {
     float: right;
     right: 10px;
     bottom: 20px;
     position: relative;
+    padding: 0px;
+    margin: 0px;
     color: #9497B3;
     font-size: 11px;
 }
