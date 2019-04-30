@@ -3,7 +3,7 @@
     box-sizing: border-box;
     font-size: 16px;
     resize: none;
-    font-family: Roboto, sans-serif;
+    font-family: sans-serif;
 }
 
 html, body {
@@ -110,14 +110,14 @@ textarea {
 
 #oktal div textarea {
     height: 100%;
-    /*background-color: #0000000c;*/
     background-color: rgba(0,0,0,0.05);
+    font-family: monospace;
     border-left: 1px solid #CFD6D9;
     border-bottom: 1px solid #CFD6D9;
     border-top: none;
     border-right: none;
     padding: 16px;
-    font-size: 14px;
+    font-size: 16px;
     letter-spacing: 2px;
     line-height: 23px;
     color: #333;
